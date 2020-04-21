@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{%block title%}Search Page{%endblock%}
+{%block header%}
+<h1>{{message}}</h1>
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand">
+	<b>Search Book</b>
+	<b class="flaot-right"><a href="{{ url_for('logout') }}">Logout</a></b>
+  </a>
+</nav>
+<article class="card-body">
+<form action="{{ url_for('search')}}" method="POST">
+	<div class="form-group input-group">
+		<input name="title" class="form-control" type="text" placeholder="Enter Book Title" aria-label="Search">
+	</div>
+	<div class="form-group input-group">
+		<input name="isbn" class="form-control" type="text" placeholder="Enter Book ISBN number" aria-label="Search">
+	</div>
+	<div class="form-group input-group">
+		<input name="author" class="form-control" type="text" placeholder="Enter Book author name" aria-label="Search">
+	</div>
+	<div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    </div>    
+</form>
+</article>
+{% endblock %}
+{%block body%}
+    <ul class="list-group">
+        {% for book in books %}
+            <li class="list-group-item">
+                <a href="{{ url_for('book', isbn=book.isbn) }}">
+                    {{ book.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
