@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{%block title%}Book Page{%endblock%}
+{%block header%}
+<h1></h1>
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand">
+	<b>Book Details</b>
+	<b class="flaot-right"><a href="{{ url_for('logout') }}">Logout</a></b>
+  </a>
+</nav>
+
+{% endblock %}
+{%block body%}
+    <ul>
+        <li>Title : {{ book.title }}</li>
+        <li>ISBN No          : {{ book.isbn }}</li>
+        <li>Author           : {{ book.author }}</li>
+		<li>Publication Year : {{ book.publication_year }}</li>
+		<li>work rating      : {{ work_rating }}</li>
+		<li>average rating   : {{ average_rating }} </li>
+    
+	{% if review == "" or rating == 0 %}
+	<div class="card">
+<article class="card-body">
+		<form action="{{ url_for('review', isbn = book.isbn)}}" method="POST">
+			<div class="form-group">
+              <label class="col-md-3 control-label" for="message">Your message</label>
+              <div class="col-md-9">
+                <textarea name="review" class="form-control" id="message" name="message" placeholder="Please enter your feedback here..." rows="5" required></textarea>
+              </div>
+            </div>
+
+
+            <!-- Rating -->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="message">Your rating</label>
+              <div class="col-md-9">
+                <input name="rating" id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" required>
+              </div>
+            </div>
+			
+			<button type="submit" class="btn btn-primary btn-md">Submit</button>
+		</form>
+		</div>
+</article>
+	{% else %}
+		<li>Your Review   : {{ review }}</li>
+		<li>Your Rating   : {{ rating }}</li>
+	{% endif %}
+	</ul>
+	
+	
+	
+
+{% endblock %}
